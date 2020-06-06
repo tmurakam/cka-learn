@@ -1,14 +1,13 @@
-3: Scheduling
+# 3: Scheduling
 
-# selector
+## selector
 
 Service の場合は単に selector に条件
 Deployment など新しい object の場合は label selector を使う。matchLabels など。
 
-# selector
-kubectl get …. —selector app=Hoge
+kubectl get ... —selector app=Hoge
 
-# taints / tolerations
+## taints / tolerations
 
 Taints は Node に、Tolerations は Pod につける
 Key-Value pair である。
@@ -19,7 +18,7 @@ Effect は NoSchedule, PrefereNoSchedule, NoExecute
 
 Tolerations は pod に指定. Key, operator, effect を書く
 
-# Node selector
+## Node selector
 
 ノードにラベルをつける。selector でも affinity でもこの作業はまず必要。
 
@@ -27,7 +26,7 @@ $ kubectl label nodes <node-name> <key>=<value>
 
 Pod の nodeSelector でノードを選択できる。
 
-# Node Affinity
+## Node Affinity
 
 matchExpressions でノード選択ができるので強力。だけど文法がめんどい。
 pod.spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms.matchExpressions
@@ -35,28 +34,28 @@ pod.spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.no
 
 operator: In, NotIn, Exists, DoesNotExist, Gt, Lt
 
-# Taints と Affinity
+## Taints と Affinity
 
 両方使う。Taints で意図しない Pod がスケジュールされるのを避けておいて、その上で affinity で指定ノードに入れる。。。
 
-# Resource requests / limits
+## Resource requests / limits
 
 requests / limits
 
 Note: デフォルト値は LimitRange で指定する。
 
-# DaemonSets
+## DaemonSets
 
 Tips: Deployments yaml 作って Kind を DaemonSet に変えればよい
 
-# Static Pods
+## Static Pods
 
 Pod の command は配列なので注意。数字はクォート必要。
 kubectl で作るときは、—command — … で。
 
 kubectl run --restart=Never --image=busybox static-busybox --dry-run -o yaml --command -- sleep 1000
 
-# Multiple Scheduler
+## Multiple Scheduler
 
 kube-scheduler.yaml を複製して、--scheduler-name= オプションで名前つける。
 HA 構成のときは  --leader-elect=true オプションが必要。
