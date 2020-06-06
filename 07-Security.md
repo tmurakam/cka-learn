@@ -24,4 +24,23 @@ Service Account は CKA には含まれない (CKAD の範囲)
 * admin: Subject の O=system:master を付ける必要がある。これが管理者権限になる。
 * api-server: SANs
 
-#
+CSR署名
+
+    openssl x509 -req -in xxx.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out out.crt -days 365
+
+## Certificate workflow
+
+Certificates API
+
+* CertificateSigningRequest Object を作成
+    * https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/
+* Review
+    * kubectl get csr
+* Approve
+    * kubectl certificate approve <name>
+* Get
+    * kubectl get csr <name> -o yaml
+    * status.certificates: に base64 エンコードされた証明書が入っている
+
+これらの処理は、CSR-APPROVING, CSR-SIGNING Controller などが実行する。
+CA証明書・鍵は controller-manager の起動時オプションに指定している (--cluster-signing-cert-file など)
