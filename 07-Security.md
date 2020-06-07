@@ -47,11 +47,20 @@ CA証明書・鍵は controller-manager の起動時オプションに指定し�
 
 手順は https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/
 
+### ユーザ証明書
+
+* k8s クラスタはユーザを管理していない
+* 証明書の CN にユーザ名を書くだけ
+* O に system:masters を入れておくと cluster-admin 権限が得られる (RoleBinding 不要)
+* ユーザは namespace には紐付かない(あたりまえだが)
+
+https://qiita.com/knqyf263/items/aefb0ff139cfb6519e27 を参照。
+
 ### CertificateSigningRequest object 作成時の注意事項
 
 * CSR base64 改行は削る。cat xxx.csr | base64 | tr -d '\n' しておく。
 * group: を書く
-    * 一般ユーザの場合は system:authenticated
+    * **system:authenticated** を指定する
     * kubernetes.io の Manage TLS ... のページにはこれが入ってないので注意。
 
 ## kubeconfig
@@ -106,6 +115,8 @@ Note:
 * Deployment 権限を与える場合、apiGroup には "apps" だけでなく "extensions" も書く必要がある。
 
 ## Cluster RBAC
+
+Cluster wide な role / rolebinding
 
 ## Image Security
 
