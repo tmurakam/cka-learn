@@ -21,7 +21,7 @@ Service Account は CKA には含まれない (CKAD の範囲)
     * kubernetes 用、etcd 用の2つ
 
 証明書生成時のメモ:
-* admin: Subject の O=system:master を付ける必要がある。これが管理者権限になる。
+* admin: Subject の O=system:masters を付ける必要がある。これが管理者権限になる。
 * api-server: SANs
 
 CSR署名
@@ -120,7 +120,22 @@ Cluster wide な role / rolebinding
 
 ## Image Security
 
+* Private registry にアクセスするための認証情報は 'docker-registry' type Secret に入れる。
+    * kubectl create secret docker-registry ...
+* Pod の imagePullSecrets.name にこの secret を指定する。
+
 ## Security Context
 
+Pod, Container いずれかのレベルで securityContext を指定できる。
+
+* runAsUser
+* capabilities.add: []
+    * capabilities は container レベルでしか指定できない
+
 ## Network Policy
-    
+
+Network Policy を作成して pod に割り当てる。
+
+* デフォルトは All Allow
+* Ingress Network Policy
+    * incoming rule を設定。pod は podSelector (label selector) で指定。ports でポート指定。    
