@@ -134,8 +134,10 @@ Pod, Container いずれかのレベルで securityContext を指定できる。
 
 ## Network Policy
 
-Network Policy を作成して pod に割り当てる。
+[Network Policy](https://kubernetes.io/docs/concepts/services-networking/network-policies/#networkpolicy-resource)
+を作成して pod に割り当てる。
 
 * デフォルトは All Allow
-* Ingress Network Policy
-    * incoming rule を設定。pod は podSelector (label selector) で指定。ports でポート指定。    
+* Ingress
+    * incoming rule を設定。pod は podSelector (label selector) で指定。ports でポート指定。
+* Egress
