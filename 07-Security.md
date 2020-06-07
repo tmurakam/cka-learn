@@ -88,10 +88,22 @@ Tips: kubectl proxy コマンドを実行すると、api-server への proxy が
         * 個別リソースを指定したい場合は resourceNames で
 * RoleBinding
 
+Role 作成
+
+    kubectl create role  <name> --resource <...> --verb=<...>
+    
+RoleBinding 作成
+
+    kubectl create rolebinding <name> --role=<role> --user=<user>    
+
 アクセス可能チェック
 
     kubectl auth can-i [action]
     kubectl auth can-i [action] --as [username]
+
+Note:
+
+* Deployment 権限を与える場合、apiGroup には "apps" だけでなく "extensions" も書く必要がある。
 
 ## Cluster RBAC
 
