@@ -18,6 +18,7 @@
 * [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment) 
 * [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/#writing-a-daemonset-spec) 
 * [Service](https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service) 
+* [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource)
 
 ## Storage
 

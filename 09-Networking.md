@@ -92,7 +92,27 @@ service の IP アドレス範囲は、kube-apiserver の --service-cluster-ip-r
 
 ## Cluster DNS
 
+Service に対し DNS にレコードが登録される
 
+名前空間: xx.<namespace>.svc.cluster.local
 
+Pod にはレコードはつくられないが、有効化はできる。
+ホスト名は 10-244-2-5 のように . を - に置換したものになる。
 
+## Core DNS
 
+v1.12 以降 CoreDNS が推奨される。
+
+CoreDNS の設定ファイルは Corefile。
+これは configmap に格納される。
+
+CoreDNS にアクセスするための kube-dns Service も生成される。
+
+## Ingress
+
+L4 / L7 いずれも。L7 のものは LoadBalancer。
+
+* Ingress Controller
+    * Ingress Controller 作成し、NodePort で外部公開する。
+* Ingress Resource
+    * nginx: rewrite-target などを活用
