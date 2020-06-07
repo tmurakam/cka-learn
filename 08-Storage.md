@@ -17,9 +17,12 @@ RPC。Volume作成・削除、publish、...
 
 ## Volume
 
-Pod 内に volume 定義を記述する方法。
-
-Pod.spec.volumes で Volume を定義し、Pod.spec.containers.volumeMount でマウント
+* Pod の containers.volumeMounts でマウント
+    * name: volume名
+    * mountPath: パス
+* Pod の volumes で Volume を定義
+     * name: volume名 (上と合わせる)
+     * hostPath や persistentVolumeClaim を指定
 
 ## Persistent Volume
 
@@ -33,3 +36,12 @@ Volume 定義を Pod から切り離す。
 
 ## Persistent Volume Claim
 
+* reclaimPolicy: PVCを削除したときにPVをどうするかを決める
+    * Delete: 削除する。デフォルト
+    * Retain: 削除されないが、二度と使われない(他の PVC からも)
+        * 手で削除しないといけない。
+    * Recycle: 中身を削除して再利用する (非推奨になった)
+
+## Storage Class / StatefulSet
+
+CKA 対象外。
