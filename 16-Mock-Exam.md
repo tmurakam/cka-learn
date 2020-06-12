@@ -2,6 +2,9 @@
 
 ## Exam 1
 
+* 比較的容易なものだけ
+* JSON Path くらいか
+
 ## Exam 2
 
 * etcd バックアップ
