@@ -7,14 +7,22 @@
 
 ## Exam 2
 
+![Mock Exam 2](./MockExam2.png)
+
 * etcd バックアップ
 * emptyDir 付きで指定 Pod 作成
 * system_time 変更可能な Pod 作成
 * PVC作成して Pod mount
 * Deployment 作成。Rolling update 実行。resource annotation に update を record する。
-    * コマンドラインでバージョン指定が必要。kubectl edit / kubectl set image を使う必要がある。
+    * コマンドラインでバージョン指定が必要。
+    * kubectl set image deployment <deployment_name> <container_name>=<image> --record
 * User 作成。特定 namespace に対して指定した operation の権限を与える。CSR/Key を使う。
+    * CertificateSigningRequest 作成。kubectl certificate approve。
+    * role, rolebinding 作成.
 * Pod 作成. Service expose.
+    * busybox作成: kubectl run busybox --image=busybox:1.28 --restart=Never
+    * DNS: kubectl exec -it busybox --command -- nslookup xxxxx
+    * Pod DNS は: 1-2-3-4.default.pod.cluster.local
 * Static pod 作成. Restart されること。
 
 ## Exam 3
