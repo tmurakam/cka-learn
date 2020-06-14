@@ -9,20 +9,25 @@ kubectl get ... —selector app=Hoge
 
 ## taints / tolerations
 
-Taints は Node に、Tolerations は Pod につける
-Key-Value pair である。
+Taints は Node に、Tolerations は Pod につける。
+Key-Value-Effect の Triplet である。なお、Value は省略できるようだ。
 
-$ kubectl taint nodes node-name key=value:<effect>
+例) env:production:NoSchedule ⇒ env=production toleration がついている Pod 以外は拒否
+
+$ kubectl taint nodes node-name key=value:{effect}
 
 Effect は NoSchedule, PrefereNoSchedule, NoExecute
 
-Tolerations は pod に指定. Key, operator, effect を書く
+Tolerations は pod に指定. key, operator, value, effect を書く
+
+補足: master にデフォルトでついている taint は
+node-role.kubernetes.io/master:NoSchedule である (Value 指定がない)
 
 ## Node selector
 
 ノードにラベルをつける。selector でも affinity でもこの作業はまず必要。
 
-$ kubectl label nodes <node-name> <key>=<value>
+$ kubectl label nodes {node-name} {key}={value}
 
 Pod の nodeSelector でノードを選択できる。
 
@@ -51,7 +56,7 @@ Tips: Deployments yaml 作って Kind を DaemonSet に変えればよい
 ## Static Pods
 
 Pod の command は配列なので注意。数字はクォート必要。
-kubectl で作るときは、—command — … で。
+kubectl で作るときは、--command -- … で。
 
 kubectl run --restart=Never --image=busybox static-busybox --dry-run -o yaml --command -- sleep 1000
 
