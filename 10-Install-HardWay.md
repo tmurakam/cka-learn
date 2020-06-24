@@ -22,14 +22,13 @@ https://github.com/mmumshad/kubernetes-the-hard-way
 
 kubelet のクライアント証明書・サーバ証明書の生成
 
-1. bootstrap token を作成し system:bootstrappers に紐付ける
-2. system:node-bootstrapper role を system:bootstrappers group に assign
-    * これは CSR を submit する role
-3. system:certificates.k8s.io:certificatesiningrequests:nodeclient を system:bootstrappers に assign 
-    * これは CSR を auto approve する role
-4. system:certificates.k8s.io:certificatesiningrequests:selfnodeclient を system:nodes に assign
-    * これは CSR を auto renew する role 
-    
+* system:bootstrappers group に以下の cluster role を assign する
+    * system:node-bootstrapper role : CSR を submit する role
+    * system:certificates.k8s.io:certificatesigningrequests:nodeclient : CSR を auto approve する role
+* system:nodes に以下の cluster role を bind する
+     * system:certificates.k8s.io:certificatesigningrequests:selfnodeclient : CSR を auto renew する role 
+ 
+bootstrap token を作成し system:bootstrappers に紐付ける。
 kubelet はこの token を使って CSR を apiserver に登録し Approve する。
 
 kubelet クライアント証明書は auto approve できるが、サーバ証明書は手動で approve が必要。
